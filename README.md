@@ -12,6 +12,33 @@ This is the repository that will serve the process of the Frontend side of Produ
 4. Use the `.env.template` file as a baseline to add the environment variables needed in `.env` file to run the project.
 5. Run `npm run dev` to run the project locally.
 
+## Running with Docker
+
+The frontend can also be run inside a **Docker container** for consistency and easier environment setup.
+
+### **1. Build the Docker Image**
+Run the following command to build the Docker image:
+
+```sh
+docker compose build
+```
+
+### **2. Run the Container**
+Start the application with:
+
+```sh
+docker compose up
+```
+
+### **3. Removing Containers and Volumes**
+If you want to stop the containers **and also remove associated volumes** (e.g., clearing cached data), run:
+
+```sh
+docker-compose down --volumes
+```
+This will delete all named volumes, ensuring a clean state when restarting the container.
+
+
 ## Folder structure
 
 The main focus will be under the `src/` subdirectories.
