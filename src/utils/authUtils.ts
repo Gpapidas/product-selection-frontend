@@ -1,5 +1,6 @@
 import axios from "axios";
 import toCamelCase from "@/utils/camelCaseUtils.ts";
+import CONFIG from "@/utils/globalVariables.ts";
 
 // Utility function to get the access token from localStorage
 export const getAccessToken = (): string | null => {
@@ -94,7 +95,7 @@ export const refreshTokens = async (): Promise<{ accessToken: string; refreshTok
 
     try {
         const response = await axios.post(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/refresh/`,
+            `${CONFIG.API_BASE_URL}/api/v1/auth/refresh/`,
             {refresh: refreshToken}
         );
         const {access, refresh} = response.data.data;
