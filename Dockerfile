@@ -11,6 +11,13 @@ RUN npm install --frozen-lockfile
 # Copy all project files
 COPY . .
 
+# Inject environment variables at build time
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
+
+# Log to verify it's available
+RUN echo "Building with VITE_API_BASE_URL=${VITE_API_BASE_URL}"
+
 # Build the frontend
 RUN npm run build
 
@@ -18,4 +25,4 @@ RUN npm run build
 EXPOSE 80
 
 # Serve the built frontend in production
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "preview"]
