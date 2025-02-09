@@ -27,4 +27,4 @@ RUN npm run build
 EXPOSE 80
 
 # Serve the built frontend in production
-CMD ["sh", "-c", "npm run build && npm run start"]
+CMD ["npm", "run", "start"]
