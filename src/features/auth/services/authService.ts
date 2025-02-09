@@ -14,7 +14,8 @@ class AuthService {
     private backendUrl: string;
 
     constructor() {
-        this.backendUrl = "https://product-selection-backend.us.aldryn.io"
+        this.backendUrl = import.meta.env.VITE_API_BASE_URL;
+        console.log("VITE_API_BASE_URL from Vite:", import.meta.env.VITE_API_BASE_URL);
     }
 
     async login(credentials: LoginCredentials): Promise<AuthResponse> {
