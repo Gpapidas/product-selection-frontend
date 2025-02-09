@@ -11,8 +11,11 @@ RUN npm install --frozen-lockfile
 # Copy all project files
 COPY . .
 
-# Expose Vite default port
-EXPOSE 5173
+# Build the frontend
+RUN npm run build
 
-# Start the development server
-CMD ["npm", "run", "dev", "--", "--host"]
+# Expose port 80 for production
+EXPOSE 80
+
+# Serve the built frontend in production
+CMD ["npm", "run", "start"]
