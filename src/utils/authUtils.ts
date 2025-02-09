@@ -39,7 +39,9 @@ export const clearAuthTokens = (): void => {
     localStorage.removeItem("refreshToken");
 };
 
-const authAxios = axios.create();
+const authAxios = axios.create({
+    withCredentials: true
+});
 
 let isRefreshing = false; // Prevent multiple refresh attempts
 

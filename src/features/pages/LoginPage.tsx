@@ -13,7 +13,7 @@ export const LoginPage = () => {
 
     useEffect(() => {
         if (token && !isLoading && user) {
-            navigate(ROUTES.HELLO_WORLD);
+            navigate(ROUTES.PRODUCTS);
         }
     }, [token, isLoading, user, navigate]);
 

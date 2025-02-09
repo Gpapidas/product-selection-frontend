@@ -25,7 +25,7 @@ export const Header = ({ user, isLoading }: HeaderProps) => {
             {!isLoading && user ? (
                 <Menu>
                     <Menu.Target>
-                        <Button variant="subtle" data-testid="user-menu-button">
+                        <Button variant="subtle" data-testid="user-menu-button" style={{ padding: "0px" }}>
                             {user.data.email}
                         </Button>
                     </Menu.Target>

@@ -1,11 +1,11 @@
 import {createBrowserRouter} from "react-router-dom";
 import {LoginPage} from "@/features/pages/LoginPage.tsx";
 import ProtectedRoute from "@/features/auth/components/ProtectedRoute.tsx";
-import HelloWorldPage from "@/features/pages/HelloWorldPage.tsx";
+import {ProductsPage} from "@/features/pages/ProductsPage.tsx";
 
 
 export const ROUTES = {
-    HELLO_WORLD: "/",
+    PRODUCTS: "/",
     LOGIN: "/login",
 };
 
@@ -17,8 +17,8 @@ export const router = createBrowserRouter([
         element: <LoginPage/>,
     },
     {
-        path: ROUTES.HELLO_WORLD,
+        path: ROUTES.PRODUCTS,
         element: <ProtectedRoute/>,
-        children: [{path: ROUTES.HELLO_WORLD, element: <HelloWorldPage/>}],
+        children: [{path: ROUTES.PRODUCTS, element: <ProductsPage/>}],
     },
 ]);

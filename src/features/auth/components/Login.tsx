@@ -21,7 +21,7 @@ export const Login = () => {
 
     const onSubmit = (values: typeof form.values) => {
         login(values, {
-            onSuccess: () => navigate(ROUTES.HELLO_WORLD),
+            onSuccess: () => navigate(ROUTES.PRODUCTS),
         });
     };
 

@@ -11,3 +11,8 @@ body {
 #root {
   height: 100%;
 }
+
+.productsTableHead {
+  vertical-align: middle;
+  white-space: nowrap;
+}
