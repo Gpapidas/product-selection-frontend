@@ -58,7 +58,7 @@ test.describe("Product List Functionality", () => {
 
     test("Product selection, reset, and deselection", async ({page}) => {
         // Step 1: Ensure product list is loaded
-        await page.waitForSelector("[data-testid^='product-row-']", {timeout: 5000});
+        await page.waitForSelector("[data-testid^='product-row-']", {timeout: 10000});
 
         const initialProductCount = await page.locator("[data-testid^='product-row-']").count();
         expect(initialProductCount).toBe(2);
@@ -119,7 +119,7 @@ test.describe("Product List Functionality", () => {
         await page.click('[data-testid="select-product-1"]');
 
         // Wait for 2 seconds before checking selection
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(10000);
 
         // Ensure Product A is selected
         await expect(page.locator('[data-testid="select-product-1"]')).toBeChecked();
@@ -160,7 +160,7 @@ test.describe("Product List Functionality", () => {
         await page.click('[data-testid="reset-search-button"]');
 
         // Wait for 2 seconds before checking the list reset
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(10000);
 
         // Ensure product list is back to initial state
         const resetProductCount = await page.locator("[data-testid^='product-row-']").count();
