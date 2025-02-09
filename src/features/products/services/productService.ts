@@ -5,12 +5,13 @@ import {
 } from "@/features/products/types/productTypes.ts";
 import authAxios from "@/utils/authUtils.ts";
 import {handleGlobalError} from "@/App.tsx";
+import CONFIG from "@/utils/globalVariables.ts";
 
 class ProductService {
     private backendUrl: string;
 
     constructor() {
-        this.backendUrl = import.meta.env.VITE_API_BASE_URL;
+        this.backendUrl = CONFIG.API_BASE_URL;
     }
 
     async getProducts(search?: string, ordering?: string, resetSearch?: boolean): Promise<ProductListResponse> {
@@ -19,7 +20,9 @@ class ProductService {
         if (ordering) params.ordering = ordering;
         if (resetSearch) params.reset_search = resetSearch;
 
+
         const response = await authAxios.get<ProductListResponse>(`${this.backendUrl}/api/v1/products/products/`, {params});
+
         return response.data;
     }
 
