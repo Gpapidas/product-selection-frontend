@@ -28,5 +28,11 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Start Vite server in the background
+        run: npm run dev -- --host &
+
+      - name: Wait for the app to be ready
+        run: npx wait-on http://localhost:5173 --timeout 10000
+
       - name: Run Playwright Tests
         run: npx playwright test
