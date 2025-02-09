@@ -17,6 +17,7 @@ export const handleGlobalError = (error: unknown) => {
             title: "Error",
             message: errorMessage,
             color: "red",
+            id: "error-notification",
             styles: {
                 root: {
                     maxWidth: "600px",

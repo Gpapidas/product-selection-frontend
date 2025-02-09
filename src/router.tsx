@@ -5,7 +5,7 @@ import HelloWorldPage from "@/features/pages/HelloWorldPage.tsx";
 
 
 export const ROUTES = {
-    HELLO_WORLD: "/helloworld",
+    HELLO_WORLD: "/",
     LOGIN: "/login",
 };
 

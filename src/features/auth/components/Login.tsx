@@ -37,15 +37,17 @@ export const Login = () => {
                         <TextInput
                             label="Email"
                             placeholder="Enter your email"
+                            data-testid="email-input"
                             {...form.getInputProps("email")}
                         />
                         <PasswordInput
                             label="Password"
                             placeholder="Enter your password"
+                            data-testid="password-input"
                             {...form.getInputProps("password")}
                         />
-                        {error && <Text color="red">{error.message}</Text>}
-                        <Button type="submit" fullWidth loading={isLoading}>
+                        {error && <Text color="red" data-testid="error-message">{error.message}</Text>}
+                        <Button type="submit" fullWidth loading={isLoading} data-testid="login-button">
                             Login
                         </Button>
                     </Stack>

@@ -25,10 +25,17 @@ export const Header = ({ user, isLoading }: HeaderProps) => {
             {!isLoading && user ? (
                 <Menu>
                     <Menu.Target>
-                        <Button variant="subtle">{user.data.email}</Button>
+                        <Button variant="subtle" data-testid="user-menu-button">
+                            {user.data.email}
+                        </Button>
                     </Menu.Target>
                     <Menu.Dropdown>
-                        <Menu.Item color="red" onClick={handleLogout} disabled={isLoggingOut}>
+                        <Menu.Item
+                            color="red"
+                            onClick={handleLogout}
+                            disabled={isLoggingOut}
+                            data-testid="logout-button"
+                        >
                             Logout
                         </Menu.Item>
                     </Menu.Dropdown>
