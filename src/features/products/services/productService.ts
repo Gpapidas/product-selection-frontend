@@ -19,7 +19,13 @@ class ProductService {
         if (ordering) params.ordering = ordering;
         if (resetSearch) params.reset_search = resetSearch;
 
+        console.log("======================")
+        console.log(`MAKING A REQUEST TO THE ${this.backendUrl}/api/v1/products/products/, params ${params}`)
+        console.log("======================")
         const response = await authAxios.get<ProductListResponse>(`${this.backendUrl}/api/v1/products/products/`, {params});
+        console.log("==================================")
+        console.log(response);
+        console.log("==================================")
         return response.data;
     }
 
