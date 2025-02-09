@@ -2,25 +2,31 @@ import {useState, useEffect} from "react";
 import {Table, Checkbox, TextInput, Loader, Center, ScrollArea, Button, Group} from "@mantine/core";
 import {IconSearch, IconPlus, IconMinus, IconReload, IconArrowUp, IconArrowDown} from "@tabler/icons-react";
 import {useProducts, useToggleProductSelection} from "@/features/products/services/productService.ts";
-import {useMediaQuery, useDebouncedValue} from "@mantine/hooks";
+import {useMediaQuery} from "@mantine/hooks";
 
 export const ProductList = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [debouncedSearch] = useDebouncedValue(searchQuery, 300);
+    const [delayedSearchQuery, setDelayedSearchQuery] = useState(""); // This will update after 300ms
     const [ordering, setOrdering] = useState<string | undefined>(undefined);
     const [resetSearch, setResetSearch] = useState(false);
     const [derivedSearchPlaceholder, setDerivedSearchPlaceholder] = useState<string | undefined>(undefined);
     const [expanded, setExpanded] = useState(false);
 
-    const {data: products, isLoading, error} = useProducts(debouncedSearch, ordering, resetSearch);
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDelayedSearchQuery(searchQuery);
+        }, 300);
+
+        return () => clearTimeout(handler);
+    }, [searchQuery]);
+
+    const {data: products, isLoading, error} = useProducts(delayedSearchQuery, ordering, resetSearch);
     const {mutate: toggleSelection} = useToggleProductSelection();
 
     const isSmallScreen = useMediaQuery("(max-width: 768px)");
 
     const handleSort = (field: string) => {
-        setOrdering(prevOrdering =>
-            prevOrdering === field ? `-${field}` : field
-        );
+        setOrdering(prevOrdering => (prevOrdering === field ? `-${field}` : field));
     };
 
     const handleSelectionToggle = (productId: number) => {
@@ -43,14 +49,9 @@ export const ProductList = () => {
     if (isLoading) return <Center><Loader/></Center>;
     if (error) return <Center>Error loading products</Center>;
 
-    // Function to render sorting indicators
     const renderSortIndicator = (field: string) => {
-        if (ordering === field) {
-            return <IconArrowUp size={14}/>;
-        }
-        if (ordering === `-${field}`) {
-            return <IconArrowDown size={14}/>;
-        }
+        if (ordering === field) return <IconArrowUp size={14}/>;
+        if (ordering === `-${field}`) return <IconArrowDown size={14}/>;
         return null;
     };
 
@@ -99,7 +100,7 @@ export const ProductList = () => {
                                 </>
                             ) : null}
 
-                            <Table.Th className="productsTableHead" >Select</Table.Th>
+                            <Table.Th className="productsTableHead">Select</Table.Th>
                         </Table.Tr>
                     </Table.Thead>
 
@@ -110,7 +111,7 @@ export const ProductList = () => {
                             </Table.Tr>
                         ) : (
                             products.map((product) => (
-                                <Table.Tr key={product.id}>
+                                <Table.Tr key={product.id} data-testid={`product-row-${product.id}`}>
                                     <Table.Td>{product.id}</Table.Td>
                                     <Table.Td>{product.name}</Table.Td>
 
@@ -136,7 +137,6 @@ export const ProductList = () => {
                 </Table>
             </ScrollArea>
 
-            {/* Expand Button for Small Screens */}
             {isSmallScreen && (
                 <Center mt="md">
                     <Button

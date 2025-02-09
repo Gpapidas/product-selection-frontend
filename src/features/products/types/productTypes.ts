@@ -12,6 +12,4 @@ export type Product = {
 
 export type ProductListResponse = BaseResponse<Product[]>;
 
-export type ProductDetailResponse = BaseResponse<Product>;
-
 export type ProductSelectionResponse = BaseResponse<Product>;
