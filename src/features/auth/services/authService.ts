@@ -1,4 +1,4 @@
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {
     AuthResponse,
     CurrentUserResponse,
@@ -6,7 +6,7 @@ import {
     LogoutRequest,
     LogoutResponse
 } from "@/features/auth/types/authTypes.ts";
-import authAxios, {clearAuthTokens, getRefreshToken, setAuthTokens} from "@/utils/authUtils.ts";
+import authAxios, {clearAuthTokens, getAccessToken, getRefreshToken, setAuthTokens} from "@/utils/authUtils.ts";
 import {handleGlobalError} from "@/App.tsx";
 
 
@@ -63,9 +63,14 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-    const mutation = useMutation<void, Error>({
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation({
         mutationFn: () => authService.logout(),
-        onError: handleGlobalError,
+        onSuccess: () => {
+            clearAuthTokens();
+            queryClient.removeQueries({queryKey: ["current-user"]});
+        },
     });
 
     return {
@@ -76,10 +81,12 @@ export const useLogout = () => {
 };
 
 export const useCurrentUser = ({enabled = true} = {}) => {
-    const query = useQuery<CurrentUserResponse, Error>({
+    const token = getAccessToken();
+
+    const query = useQuery({
         queryKey: ["current-user"],
         queryFn: () => authService.getCurrentUser(),
-        enabled
+        enabled: enabled && !!token,
     });
 
     return {
@@ -88,4 +95,3 @@ export const useCurrentUser = ({enabled = true} = {}) => {
         error: query.error,
     };
 };
-

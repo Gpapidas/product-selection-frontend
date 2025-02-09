@@ -1,20 +1,21 @@
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import {Layout} from "../../Layout.tsx";
 import {Login} from "@/features/auth/components/Login.tsx";
-import {useNavigate} from "react-router-dom";
 import {useCurrentUser} from "@/features/auth/services/authService.ts";
-import {useEffect} from "react";
 import {ROUTES} from "@/router.tsx";
-
+import {getAccessToken} from "@/utils/authUtils.ts";
 
 export const LoginPage = () => {
     const navigate = useNavigate();
-    const {data: user, isLoading} = useCurrentUser();
+    const token = getAccessToken();
+    const {data: user, isLoading} = useCurrentUser({enabled: !!token});
 
     useEffect(() => {
-        if (!isLoading && user) {
+        if (token && !isLoading && user) {
             navigate(ROUTES.HELLO_WORLD);
         }
-    }, [isLoading, user, navigate]);
+    }, [token, isLoading, user, navigate]);
 
     return <Layout mainContent={<Login/>} hideUser={true}/>;
 };
