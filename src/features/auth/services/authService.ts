@@ -8,14 +8,13 @@ import {
 } from "@/features/auth/types/authTypes.ts";
 import authAxios, {clearAuthTokens, getAccessToken, getRefreshToken, setAuthTokens} from "@/utils/authUtils.ts";
 import {handleGlobalError} from "@/App.tsx";
-import CONFIG from "@/utils/globalVariables.ts";
 
 
 class AuthService {
     private backendUrl: string;
 
     constructor() {
-        this.backendUrl = CONFIG.API_BASE_URL;
+        this.backendUrl = import.meta.env.VITE_API_BASE_URL;
     }
 
     async login(credentials: LoginCredentials): Promise<AuthResponse> {

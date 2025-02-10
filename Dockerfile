@@ -11,14 +11,9 @@ RUN npm install --frozen-lockfile
 # Copy all project files
 COPY . .
 
-
-# Inject environment variable at build time
-ARG VITE_API_BASE_URL
-ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
-
-# Make sure Vite sees it
-RUN echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env.production
-
+# Copy the entrypoint script and set executable permissions
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Build the frontend
 RUN npm run build
@@ -26,5 +21,5 @@ RUN npm run build
 # Expose port 80 for production
 EXPOSE 80
 
-# Serve the built frontend in production
-CMD ["npm", "run", "start"]
+# Use the entrypoint script to inject environment variables at runtime
+ENTRYPOINT ["/entrypoint.sh"]
