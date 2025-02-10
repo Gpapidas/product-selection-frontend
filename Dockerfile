@@ -23,3 +23,5 @@ EXPOSE 80
 
 # Use the entrypoint script to inject environment variables at runtime
 ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["npm", "run", "start"]
