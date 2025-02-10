@@ -1,5 +1,5 @@
 const CONFIG = {
-  API_BASE_URL: "https://product-selection-backend.us.aldryn.io",
+  API_BASE_URL: process.env.VITE_API_BASE_URL || "http://localhost:8000",
 };
 
 export default CONFIG;
