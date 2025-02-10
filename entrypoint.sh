@@ -11,3 +11,5 @@ echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > /app/.env.production
 echo "Updated .env.production:"
 cat /app/.env.production
 
+# Start the frontend server
+exec npm run start
