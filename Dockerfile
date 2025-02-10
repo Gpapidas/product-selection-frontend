@@ -14,15 +14,8 @@ COPY . .
 # Build the frontend
 RUN npm run build
 
-# Copy the entrypoint script to inject env variables at runtime
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Expose port 80 for production
 EXPOSE 80
 
-# Use the entrypoint script at runtime
-ENTRYPOINT ["/entrypoint.sh"]
-
-# Start the frontend server
+# Serve the built frontend in production
 CMD ["npm", "run", "start"]
